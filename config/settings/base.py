@@ -312,3 +312,6 @@ REST_FRAMEWORK = {
 CORS_URLS_REGEX = r"^/api/.*$"
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+TG_BOT_TOKEN = env.str("TG_BOT_TOKEN", default="")
+TG_BOT_ADMIN = env.str("TG_BOT_ADMIN", default="")
