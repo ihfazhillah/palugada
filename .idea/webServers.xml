@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e6c50bbe-5072-494f-9e28-24221f09fbf5" name="sembada">
+        <fileTransfer accessType="SFTP" host="sembada" port="22" sshConfigId="6a258e64-3430-4f5b-af99-7ea250c99e45" sshConfig="sembada" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
