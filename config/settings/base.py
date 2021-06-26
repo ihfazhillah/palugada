@@ -72,6 +72,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
+    "fcm_django",
 ]
 
 LOCAL_APPS = [
@@ -315,3 +316,12 @@ CORS_URLS_REGEX = r"^/api/.*$"
 
 TG_BOT_TOKEN = env.str("TG_BOT_TOKEN", default="")
 TG_BOT_ADMIN = env.str("TG_BOT_ADMIN", default="")
+
+FCM_SERVER_KEY = env.str("FCM_SERVER_KEY", default="")
+
+FCM_DJANGO_SETTINGS = {
+    "APP_VERBOSE_NAME": "Sembada Server",
+    "FCM_SERVER_KEY": FCM_SERVER_KEY, # noqa
+    "ONE_DEVICE_PER_USER": False,
+    "DELETE_INACTIVE_DEVICES": False
+}
