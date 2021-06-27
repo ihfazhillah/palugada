@@ -27,6 +27,15 @@ class ItemDict(TypedDict):
     tags: List[str]
 
 
+def fcm_sender(input: ItemDict):
+    devices = FCMDevice.objects.all()
+    title = input["title"]
+    description = input["description"]
+
+    devices.send_message(title=title, description=description[:100], data={"type": "feed", "data": input})
+
+
+
 def telegram_bot_sender(input: ItemDict):
     url = f"https://api.telegram.org/bot{settings.TG_BOT_TOKEN}/sendMessage"
 
@@ -58,7 +67,7 @@ def telegram_bot_sender(input: ItemDict):
     print(response.json())
 
 class OnNewFeedItem:
-    receivers = [telegram_bot_sender]
+    receivers = [telegram_bot_sender, fcm_sender]
     def dispatch(self, data: dict):
         for receiver in self.receivers:
             receiver(data)
