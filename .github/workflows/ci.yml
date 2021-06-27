@@ -57,13 +57,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-
       - name: Executing remote command
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
-          USERNAME: ${{ secrets.USERNAME }}
-          PORT: 22
-          KEY: ${{ secrets.SSH_KEY }}
-          script: cd sembada && git pull && docker-compose -f production.yml run --rm django python manage.py migrate && docker-compose.yml -f production.yml run --build -d
+          username: ${{ secrets.USERNAME }}
+          port: 22
+          key: ${{ secrets.SSH_KEY }}
+          script: cd /home/sembada/palugada && git pull && docker-compose -f production.yml run --rm django python manage.py migrate && docker-compose.yml -f production.yml run --build -d
