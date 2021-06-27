@@ -8,7 +8,7 @@ from django.conf import settings
 
 from config.celery_app import app as celery_app
 from sembada.feeds.models import FeedItem, FeedTag, FeedUrl
-
+from fcm_django.models import FCMDevice
 
 @dataclass
 class Item:
@@ -70,7 +70,10 @@ class OnNewFeedItem:
     receivers = [telegram_bot_sender, fcm_sender]
     def dispatch(self, data: dict):
         for receiver in self.receivers:
-            receiver(data)
+            try:
+                receiver(data)
+            except Exception as e:
+                print(e)
 
 on_new_feed_item = OnNewFeedItem()
 
