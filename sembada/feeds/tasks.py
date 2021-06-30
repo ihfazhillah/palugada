@@ -32,7 +32,8 @@ def fcm_sender(input: ItemDict):
     title = input["title"]
     description = input["description"]
 
-    devices.send_message(title=title, body=description[:100], data={"type": "feed", "data": input})
+#    devices.send_message(title=title, body=description[:100], data={"type": "feed", "data": input})
+    devices.send_message(data={"type": "feed", "data": input})
 
 
 
