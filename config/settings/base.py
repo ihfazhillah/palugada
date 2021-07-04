@@ -301,6 +301,11 @@ SOCIALACCOUNT_ADAPTER = "sembada.users.adapters.SocialAccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
+        "APP": {
+            "client_id": "1057560830448-ortf1in5k9nl17vbmp26n5bnehjc0faf.apps.googleusercontent.com",
+            "secret": "7Gjp507IKon8l-YynOL73FkI",
+            "key": ""
+        },
         "SCOPE": [
             "profile",
             "email",
