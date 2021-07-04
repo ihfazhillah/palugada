@@ -68,9 +68,12 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",  # <- google authentication
     "django_celery_beat",
     "rest_framework",
     "rest_framework.authtoken",
+    "rest_auth",
+    "rest_auth.registration",
     "corsheaders",
     "fcm_django",
 ]
@@ -244,7 +247,7 @@ LOGGING = {
     "formatters": {
         "verbose": {
             "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
+                      "%(process)d %(thread)d %(message)s"
         }
     },
     "handlers": {
@@ -293,6 +296,26 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_ADAPTER = "sembada.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 SOCIALACCOUNT_ADAPTER = "sembada.users.adapters.SocialAccountAdapter"
+
+# Social Accounts Provider Settings
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "APP": {
+            "client_id": env.str("GOOGLE_CLIENT_ID", ""),
+            "secret": env.str("GOOGLE_CLIENT_SECRET", ""),
+            "key": ""
+        },
+        "SCOPE": [
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        }
+    }
+}
+
 # django-compressor
 # ------------------------------------------------------------------------------
 # https://django-compressor.readthedocs.io/en/latest/quickstart/#installation
@@ -321,7 +344,7 @@ FCM_SERVER_KEY = env.str("FCM_SERVER_KEY", default="")
 
 FCM_DJANGO_SETTINGS = {
     "APP_VERBOSE_NAME": "Sembada Server",
-    "FCM_SERVER_KEY": FCM_SERVER_KEY, # noqa
+    "FCM_SERVER_KEY": FCM_SERVER_KEY,  # noqa
     "ONE_DEVICE_PER_USER": False,
     "DELETE_INACTIVE_DEVICES": False
 }
