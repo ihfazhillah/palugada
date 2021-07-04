@@ -302,8 +302,8 @@ SOCIALACCOUNT_ADAPTER = "sembada.users.adapters.SocialAccountAdapter"
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "APP": {
-            "client_id": "1057560830448-ortf1in5k9nl17vbmp26n5bnehjc0faf.apps.googleusercontent.com",
-            "secret": "7Gjp507IKon8l-YynOL73FkI",
+            "client_id": env.str("GOOGLE_CLIENT_ID", ""),
+            "secret": env.str("GOOGLE_CLIENT_SECRET", ""),
             "key": ""
         },
         "SCOPE": [
