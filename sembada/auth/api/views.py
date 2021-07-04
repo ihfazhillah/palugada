@@ -13,6 +13,7 @@ class GoogleTokenIdAdapter(GoogleOAuth2Adapter):
         )
         resp.raise_for_status()
         extra_data = resp.json()
+        extra_data["id"] = extra_data["sub"]
         login = self.get_provider().sociallogin_from_response(request, extra_data)
         return login
 
