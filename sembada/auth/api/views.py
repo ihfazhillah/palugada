@@ -8,6 +8,8 @@ class GoogleLoginView(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
     client_class = OAuth2Client
     serializer_class = SocialLoginSerializer
+    callback_url = 'https://sembada.ihfazh.com/accounts/google/login/callback/'
+
 
     def get_serializer(self, *args, **kwargs):
         serializer_class = self.get_serializer_class()
