@@ -73,7 +73,7 @@ jobs:
       - name: Build the containers
         run:  |
           docker-compose -f "production.yml" build
-          docker image ls | grep ghcr.io | awk '{print $1}' | xargs docker push
+          docker-compose -f "production.yml" push --ignore-push-failures
 #
 #      - name: Executing remote command
 #        uses: appleboy/ssh-action@master
