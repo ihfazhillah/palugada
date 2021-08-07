@@ -74,8 +74,8 @@ jobs:
         run:  |
           docker-compose -f "production.yml" build
           docker-compose -f "production.yml" push --ignore-push-failures
-#
-#      - name: Executing remote command
+
+      - name: Executing remote command
 #        uses: appleboy/ssh-action@master
 #        with:
 #          host: ${{ secrets.HOST }}
@@ -83,3 +83,10 @@ jobs:
 #          port: 22
 #          key: ${{ secrets.SSH_KEY }}
 #          script: cd /home/sembada/palugada && git pull && sudo docker-compose -f production.yml stop && sudo docker-compose -f production.yml up --build -d && sudo docker-compose -f production.yml run --rm django python manage.py migrate
+        env:
+          SERVER: ${{ secrets.USERNAME }}@${{ secrets.HOST }}
+        run: |
+          echo ${{ secrets.SSH_KEY }} > secret
+          scp -r .envs $SERVER:/home/ihfazh/palugada
+          scp production.yml $SERVER:/home/ihfazh/palugada
+
