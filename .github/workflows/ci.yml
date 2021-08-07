@@ -57,11 +57,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Executing remote command
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          port: 22
-          key: ${{ secrets.SSH_KEY }}
-          script: cd /home/sembada/palugada && git pull && sudo docker-compose -f production.yml stop && sudo docker-compose -f production.yml up --build -d && sudo docker-compose -f production.yml run --rm django python manage.py migrate
+      - name: Login to github registry
+        uses: actions/checkout@v2
+        run: |
+          echo $CR_PAT $ docker login ghcr.io -u ihfazhillah --password-stdin
+        env:
+          CR_PAT: ${{ secrets.DOCKER_PAT }}
+      - name: Build the containers
+        run:  |
+          docker-compose -f "production.yml" build &&
+          docker image ls | grep sembada | awk '{print $1}' | xargs docker push
+#
+#      - name: Executing remote command
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.HOST }}
+#          username: ${{ secrets.USERNAME }}
+#          port: 22
+#          key: ${{ secrets.SSH_KEY }}
+#          script: cd /home/sembada/palugada && git pull && sudo docker-compose -f production.yml stop && sudo docker-compose -f production.yml up --build -d && sudo docker-compose -f production.yml run --rm django python manage.py migrate
