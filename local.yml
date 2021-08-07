@@ -9,7 +9,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
-    image: sembada_local_django
+    image: ghcr.io/ihfazhillah/palugada/sembada_local_django
     container_name: sembada_local_django
     depends_on:
       - postgres
@@ -37,7 +37,7 @@ services:
       - ./.envs/.local/.postgres
 
   docs:
-    image: sembada_local_docs
+    image: ghcr.io/ihfazhillah/palugada/sembada_local_docs
     container_name: docs
     build:
       context: .
@@ -64,7 +64,7 @@ services:
 
   celeryworker:
     <<: *django
-    image: sembada_local_celeryworker
+    image: ghcr.io/ihfazhillah/palugada/sembada_local_celeryworker
     container_name: sembada_celeryworker
     depends_on:
       - redis
@@ -75,7 +75,7 @@ services:
 
   celerybeat:
     <<: *django
-    image: sembada_local_celerybeat
+    image: ghcr.io/ihfazhillah/palugada/sembada_local_celerybeat
     container_name: sembada_celerybeat
     depends_on:
       - redis
@@ -86,7 +86,7 @@ services:
 
   flower:
     <<: *django
-    image: sembada_local_flower
+    image: ghcr.io/ihfazhillah/palugada/sembada_local_flower
     container_name: sembada_flower
     ports:
       - "5555:5555"
