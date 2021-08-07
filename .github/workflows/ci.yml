@@ -57,12 +57,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Login to github registry
-        uses: actions/checkout@v2
-        run: |
-          echo $CR_PAT $ docker login ghcr.io -u ihfazhillah --password-stdin
-        env:
-          CR_PAT: ${{ secrets.DOCKER_PAT }}
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ihfazhillah
+          password: ${{ secrets.DOCKER_PAT }}
       - name: Build the containers
         run:  |
           docker-compose -f "production.yml" build &&
