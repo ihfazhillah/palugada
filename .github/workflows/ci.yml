@@ -75,18 +75,28 @@ jobs:
           docker-compose -f "production.yml" build
           docker-compose -f "production.yml" push --ignore-push-failures
 
+      - name: Copy files
+        uses: appleyboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: 22
+          key: ${{ secrets.SSH_KEY }}
+          source: ".envs/.production/*,production.yml"
+          target: "/home/ihfazh/palugada"
       - name: Executing remote command
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USERNAME }}
-#          port: 22
-#          key: ${{ secrets.SSH_KEY }}
-#          script: cd /home/sembada/palugada && git pull && sudo docker-compose -f production.yml stop && sudo docker-compose -f production.yml up --build -d && sudo docker-compose -f production.yml run --rm django python manage.py migrate
-        env:
-          SERVER: ${{ secrets.USERNAME }}@${{ secrets.HOST }}
-        run: |
-          echo ${{ secrets.SSH_KEY }} > secret
-          scp -r .envs $SERVER:/home/ihfazh/palugada
-          scp production.yml $SERVER:/home/ihfazh/palugada
-
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: 22
+          key: ${{ secrets.SSH_KEY }}
+          script: cd /home/sembada/palugada && docker-compose -f production.yml pull && docker-compose -f production.yml up -d
+#        env:
+#          SERVER: ${{ secrets.USERNAME }}@${{ secrets.HOST }}
+#        run: |
+#          apt install scp
+#          echo ${{ secrets.SSH_KEY }} > secret
+#          scp -r .envs $SERVER:/home/ihfazh/palugada
+#          scp production.yml $SERVER:/home/ihfazh/palugada
+#
