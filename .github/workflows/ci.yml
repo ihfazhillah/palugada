@@ -66,13 +66,13 @@ jobs:
           password: ${{ secrets.DOCKER_PAT }}
       - name: Create production envs
         run: |
-          mkdir -p .envs/.production &&
-          echo ${{ secrets.DOT_DJANGO }} | base64 --decode > .envs/.production/.django &&
-          echo ${{ secrets.DOT_PSQL }} | base64 --decode > .envs/.production/.postgres &&
+          mkdir -p .envs/.production
+          echo ${{ secrets.DOT_DJANGO }} | base64 --decode > .envs/.production/.django
+          echo ${{ secrets.DOT_PSQL }} | base64 --decode > .envs/.production/.postgres
 
       - name: Build the containers
         run:  |
-          docker-compose -f "production.yml" build &&
+          docker-compose -f "production.yml" build
           docker image ls | grep sembada | awk '{print $1}' | xargs docker push
 #
 #      - name: Executing remote command
