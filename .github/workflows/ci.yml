@@ -91,7 +91,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: 22
           key: ${{ secrets.SSH_KEY }}
-          script: cd /home/sembada/palugada && docker-compose -f production.yml pull && docker-compose -f production.yml up -d
+          script: ./scripts/deploy.sh
 #        env:
 #          SERVER: ${{ secrets.USERNAME }}@${{ secrets.HOST }}
 #        run: |
