@@ -91,7 +91,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: 22
           key: ${{ secrets.SSH_KEY }}
-          script: ./home/ihfazh/palugada/scripts/deploy.sh
+          script: bash /home/ihfazh/palugada/scripts/deploy.sh
 #        env:
 #          SERVER: ${{ secrets.USERNAME }}@${{ secrets.HOST }}
 #        run: |
