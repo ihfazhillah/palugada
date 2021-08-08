@@ -82,7 +82,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: 22
           key: ${{ secrets.SSH_KEY }}
-          source: ".envs/.production/*,production.yml"
+          source: ".envs/.production/*,production.yml,scripts/*"
           target: "/home/ihfazh/palugada"
       - name: Executing remote command
         uses: appleboy/ssh-action@master
@@ -91,7 +91,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: 22
           key: ${{ secrets.SSH_KEY }}
-          script: ./scripts/deploy.sh
+          script: ./home/ihfazh/palugada/scripts/deploy.sh
 #        env:
 #          SERVER: ${{ secrets.USERNAME }}@${{ secrets.HOST }}
 #        run: |
